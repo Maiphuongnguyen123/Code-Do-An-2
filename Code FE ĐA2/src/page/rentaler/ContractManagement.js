@@ -9,37 +9,95 @@ import Pagination from "./Pagnation";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 
+const mockContracts = [
+  {
+    id: 1,
+    name: "Hợp đồng thuê Phòng trọ Quận Hai Bà Trưng",
+    room: { title: "Phòng trọ Quận Hai Bà Trưng", price: 3000000, status: "ROOM_RENT" },
+    nameOfRent: "Nguyễn Văn A",
+    phone: "0905123456",
+    files: null,
+    deadlineContract: "2025-02-01",
+    room: {
+      waterCost: 100000,
+      publicElectricCost: 150000,
+      internetCost: 80000,
+    },
+  },
+  {
+    id: 2,
+    name: "Hợp đồng thuê Căn hộ mini khu Bách Kinh Xây",
+    room: { title: "Căn hộ mini khu Bách Kinh Xây", price: 5000000, status: "HIRED" },
+    nameOfRent: "Trần Thị B",
+    phone: "0987123456",
+    files: null,
+    deadlineContract: "2025-05-15",
+    room: {
+      waterCost: 120000,
+      publicElectricCost: 180000,
+      internetCost: 100000,
+    },
+  },
+  {
+    id: 3,
+    name: "Hợp đồng thuê Phòng trọ Đống Đa",
+    room: { title: "Phòng trọ Đống Đa", price: 4000000, status: "CHECKED_OUT" },
+    nameOfRent: "Lê Minh C",
+    phone: "0938123456",
+    files: null,
+    deadlineContract: "2024-12-20",
+    room: {
+      waterCost: 90000,
+      publicElectricCost: 120000,
+      internetCost: 75000,
+    },
+  },
+];
+
 function ContractManagement(props) {
   const { authenticated, role, currentUser, location, onLogout } = props;
   const history = useNavigate();
 
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(mockContracts);
+  const [expiredContracts, setExpiredContracts] = useState([]); 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch data from the API
+  // // Fetch data from the API
 
-  const fetchData = () => {
-    getAllContractOfRentaler(currentPage, itemsPerPage, searchQuery)
-      .then((response) => {
-        setTableData(response.content);
-        setTotalItems(response.totalElements);
-      })
-      .catch((error) => {
-        toast.error(
-          (error && error.message) ||
-            "Oops! Có điều gì đó xảy ra. Vui lòng thử lại!"
-        );
-      });
-  };
+  // const fetchData = () => {
+  //   getAllContractOfRentaler(currentPage, itemsPerPage, searchQuery)
+  //     .then((response) => {
+  //       setTableData(response.content);
+  //       setTotalItems(response.totalElements);
+  //     })
+  //     .catch((error) => {
+  //       toast.error(
+  //         (error && error.message) ||
+  //           "Oops! Có điều gì đó xảy ra. Vui lòng thử lại!"
+  //       );
+  //     });
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, [currentPage, searchQuery]);
   useEffect(() => {
-    fetchData();
-  }, [currentPage, searchQuery]);
-  const handleSearch = (event) => {
+    // Xử lý hợp đồng hết hạn/sắp hết hạn
+    const now = new Date();
+    const expiredOrAlmostExpired = tableData.filter((contract) => {
+      const deadline = new Date(contract.deadlineContract);
+      const remainingDays = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24)); // Tính số ngày còn lại
+      return remainingDays <= 30; // Hết hạn hoặc sắp hết hạn (dưới 30 ngày)
+    });
+
+    setExpiredContracts(expiredOrAlmostExpired);
+  }, [tableData]);
+
+  function handleSearch(event) {
     setSearchQuery(event.target.value);
-  };
+  }
 
   const handleRedirectAddRoom = () => {
     history("/rentaler/add-contract");
@@ -68,24 +126,28 @@ function ContractManagement(props) {
     return remainingMonths;
   };
 
-  if (!props.authenticated) {
-    return (
-      <Navigate
-        to={{
-          pathname: "/login-rentaler",
-          state: { from: location },
-        }}
-      />
-    );
-  }
+  // if (!props.authenticated) {
+  //   return (
+  //     <Navigate
+  //       to={{
+  //         pathname: "/login-rentaler",
+  //         state: { from: location },
+  //       }}
+  //     />
+  //   );
+  // }
 
   return (
     <>
-      <div className="wrapper">
+      <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
         <nav id="sidebar" className="sidebar js-sidebar">
           <div className="sidebar-content js-simplebar">
             <a className="sidebar-brand" href="index.html">
-              <span className="align-middle">RENTALER PRO</span>
+            <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
             </a>
             <SidebarNav />
           </div>
@@ -104,6 +166,16 @@ function ContractManagement(props) {
                 Quản lý hợp đồng của những người thuê trọ.
               </h6>
             </div>
+            <div className="card-body">
+                {/* Thông báo hợp đồng hết hạn/sắp hết hạn */}
+                {expiredContracts.length > 0 && (
+                  <div className="alert alert-warning" role="alert">
+                    <strong>Thông báo:</strong> Có{" "}
+                    {expiredContracts.length} hợp đồng sắp hết hạn hoặc đã
+                    hết hạn.
+                  </div>
+                )}
+                </div>
             <div className="card-body">
               <div
                 id="datatables-buttons_wrapper"

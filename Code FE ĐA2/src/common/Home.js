@@ -109,7 +109,7 @@ class Home extends Component {
         return (
             <div style={{ fontFamily: "Arial, sans-serif" }}>
             <main id="main">
-                <section className="section-services section-t8">
+                <section className="section-services section-t8" style={{ padding: "5px 2", margin: "5" }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
@@ -198,7 +198,7 @@ class Home extends Component {
             
                 </section>
 
-                <section className="section-property section-t8">
+                <section className="section-property section-t8" style={{ padding: "5px 2", margin: "5" }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
@@ -274,7 +274,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </section>
-                <section className="section-agents section-t8">
+                <section className="section-agents section-t8" style={{ padding: "5px 0", margin: "5" }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">

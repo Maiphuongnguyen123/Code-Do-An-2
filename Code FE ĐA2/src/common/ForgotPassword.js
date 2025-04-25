@@ -12,11 +12,11 @@ class ForgotPassword extends Component {
         return (
             <>
                 <Header authenticated={this.props.authenticated} currentUser={this.props.currentUser} onLogout={this.props.onLogout} />
-                <div className="body-content" style={{ marginTop: '220px', minHeight: '500px' }}> {/* Thêm một wrapper cho phần "body" */}
+                <div className="body-content" style={{ marginTop: '220px', minHeight: '500px', fontFamily: "Arial, sans-serif" }} > {/* Thêm một wrapper cho phần "body" */}
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 order-md-2">
-                                <img src="../../assets/img/undraw_file_sync_ot38.svg" alt="Image" className="img-fluid" />
+                                <img src="../../assets/img/backgroundnew.png" alt="Image" className="img-fluid" />
                             </div>
                             <div className="col-md-6 contents">
                                 <div className="row justify-content-center">
@@ -24,9 +24,22 @@ class ForgotPassword extends Component {
                                         <div className="mb-4">
                                             <h3>Quên mật khẩu</h3>
                                             <p className="mb-4">Điền mail của trang mà bạn đăng nhập trên trang web của chúng tôi.</p>
+                                            
                                         </div>
-                                        <ForgotPasswordForm />
+                                        
+                                        <ForgotPasswordForm /> 
+
+                                        <p className="mb-4">
+  Bạn đang đăng nhập với vai trò{' '}
+  <span style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>NGƯỜI THUÊ TRỌ</span>.
+</p>
+<p className="mb-4">
+  Nếu bạn chưa có tài khoản, <a href="/signup">Đăng ký tài khoản mới</a>.
+</p>
+
                                     </div>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>

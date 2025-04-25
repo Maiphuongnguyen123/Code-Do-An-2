@@ -28,13 +28,14 @@ const Authorization = (props) => {
             roleRequest = { 'roleName' : "RENTALER" };
         }
 
-        setAuthorization(userId, roleRequest).then(response => {
-            toast.success(response.message)
-        }).catch(
-            error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            }
-        )
+    //     setAuthorization(userId, roleRequest).then(response => {
+    //         toast.success(response.message)
+    //     }).catch(
+    //         error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         }
+    //     )
+
     };
 
     useEffect(() => {
@@ -55,15 +56,15 @@ const Authorization = (props) => {
 
 
 
-    if (!authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-admin",
-                state: { from: location }
-            }} />;
-    }
+    // if (!authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-admin",
+    //             state: { from: location }
+    //         }} />;
+    // }
 
-    console.log("ID", userId)
+    // console.log("ID", userId)
 
 
     return (

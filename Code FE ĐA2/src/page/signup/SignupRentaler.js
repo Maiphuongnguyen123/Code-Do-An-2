@@ -66,7 +66,7 @@ function SignupRentaler(props) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 order-md-2">
-                            <img src="../../assets/img/background.png" alt="Image" className="img-fluid" />
+                            <img src="../../assets/img/backgroundnew.png" alt="Image" className="img-fluid" />
                         </div>
                         <div className="col-md-6 contents">
                             <div className="row justify-content-center">

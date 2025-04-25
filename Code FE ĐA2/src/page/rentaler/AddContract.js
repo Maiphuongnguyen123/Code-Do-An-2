@@ -78,32 +78,36 @@ function AddContract(props) {
         console.log(contractData);
     };
 
-    useEffect(() => {
-        getRentOfHome()
-            .then(response => {
-                const room = response.content;
-                setRoomOptions(room);
-            })
-            .catch(error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            });
-    }, []);
+    // useEffect(() => {
+    //     getRentOfHome()
+    //         .then(response => {
+    //             const room = response.content;
+    //             setRoomOptions(room);
+    //         })
+    //         .catch(error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         });
+    // }, []);
 
-    console.log("Add room", authenticated);
-    if (!authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
-    }
+    // console.log("Add room", authenticated);
+    // if (!authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
     return (
         <>
-            <div className="wrapper">
+            <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
                 <nav id="sidebar" className="sidebar js-sidebar">
                     <div className="sidebar-content js-simplebar">
                         <a className="sidebar-brand" href="index.html">
-                            <span className="align-middle">RENTALER PRO</span>
+                        <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
                         </a>
                         <SidebarNav />
                     </div>

@@ -3,8 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import SidebarNav from "./SidebarNav";
 import Nav from "./Nav";
 import Pagination from "./Pagnation"; // Sửa lỗi tên import từ Pagnation thành Pagination
-import { toast } from "react-toastify";
-import { getAllElectricAndWaterOfRentaler } from "../../services/fetch/ApiUtils";
+// import { toast } from "react-toastify";
+// import { getAllElectricAndWaterOfRentaler } from "../../services/fetch/ApiUtils";
 
 const ElectricAndWaterManagement = (props) => {
   const { authenticated, role, currentUser, location, onLogout } = props;
@@ -18,45 +18,84 @@ const ElectricAndWaterManagement = (props) => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  useEffect(() => {
+    // Mock data for room rent management
+    const mockData = [
+      {
+        id: 1,
+        name: "Phòng A1",
+        month: "12/2024",
+        contractRent: 5000000,
+        serviceFee: 500000,
+        repairFee: 100000,
+        discount: 200000,
+        totalRent: 5300000,
+        status: "Đã thanh toán",
+      },
+      {
+        id: 2,
+        name: "Phòng B2",
+        month: "12/2024",
+        contractRent: 4500000,
+        serviceFee: 400000,
+        repairFee: 150000,
+        discount: 0,
+        totalRent: 5050000,
+        status: "Chưa thanh toán",
+      },
+      {
+        id: 3,
+        name: "Phòng C3",
+        month: "11/2024",
+        contractRent: 6000000,
+        serviceFee: 600000,
+        repairFee: 200000,
+        discount: 300000,
+        totalRent: 6500000,
+        status: "Đã thanh toán",
+      },
+    ];
 
-  const calculateRemainingMonths = (deadlineContract) => {
+    setTableData(mockData);
+    setTotalItems(mockData.length);
+  }, []);
+  function calculateRemainingMonths(deadlineContract) {
     const currentDate = new Date();
     const contractDate = new Date(deadlineContract);
 
-    const remainingMonths =
-      (contractDate.getFullYear() - currentDate.getFullYear()) * 12 +
+    const remainingMonths = (contractDate.getFullYear() - currentDate.getFullYear()) * 12 +
       (contractDate.getMonth() - currentDate.getMonth());
 
     return remainingMonths;
-  };
+  }
 
   // Tất cả các hooks phải được gọi ở đây
 
-  const fetchData = () => {
-    getAllElectricAndWaterOfRentaler(currentPage, itemsPerPage, searchQuery)
-      .then((response) => {
-        console.log("dataTable", response);
+  // const fetchData = () => {
+  //   getAllElectricAndWaterOfRentaler(currentPage, itemsPerPage, searchQuery)
+  //     .then((response) => {
+  //       console.log("dataTable", response);
 
-        if (response && response.content) {
-          setTableData(response.content);
-          setTotalItems(response.totalElements);
-        } else {
-          setTableData([]);
-          setTotalItems(0);
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          (error && error.message) ||
-            "Oops! Có điều gì đó xảy ra. Vui lòng thử lại!"
-        );
-        setTableData([]);
-        setTotalItems(0);
-      });
-  };
-  useEffect(() => {
-    fetchData();
-  }, [currentPage, searchQuery]);
+  //       if (response && response.content) {
+  //         setTableData(response.content);
+  //         setTotalItems(response.totalElements);
+  //       } else {
+  //         setTableData([]);
+  //         setTotalItems(0);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       toast.error(
+  //         (error && error.message) ||
+  //           "Oops! Có điều gì đó xảy ra. Vui lòng thử lại!"
+  //       );
+  //       setTableData([]);
+  //       setTotalItems(0);
+  //     });
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, [currentPage, searchQuery]);
   console.log("tableData", tableData);
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -74,17 +113,21 @@ const ElectricAndWaterManagement = (props) => {
     history(`/rentaler/electric_water-management/export-bill/${id}`);
   };
 
-  if (!authenticated) {
-    return <Navigate to="/login-rentaler" state={{ from: location }} />;
-  }
+  // if (!authenticated) {
+  //   return <Navigate to="/login-rentaler" state={{ from: location }} />;
+  // }
 
   return (
     <div>
-      <div className="wrapper">
+      <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
         <nav id="sidebar" className="sidebar js-sidebar">
           <div className="sidebar-content js-simplebar">
             <a className="sidebar-brand" href="index.html">
-              <span className="align-middle">RENTALER PRO</span>
+            <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
             </a>
             <SidebarNav />
           </div>
@@ -96,9 +139,9 @@ const ElectricAndWaterManagement = (props) => {
           <div className="container-fluid p-0"></div>
           <div className="card">
             <div className="card-header">
-              <h5 className="card-title">Quản lý tiền điện nước</h5>
+              <h5 className="card-title">Quản lý tiền thuê trọ</h5>
               <h6 className="card-subtitle text-muted">
-                Quản lý tiền điện nước của những người thuê trọ.
+                Quản lý tiền dịch vụ, tiền nhà của những người thuê trọ.
               </h6>
             </div>
             <div className="card-body">
@@ -114,7 +157,7 @@ const ElectricAndWaterManagement = (props) => {
                         type="button"
                         onClick={handleRedirectAddElectric}
                       >
-                        Thêm tiền điện nước
+                        Thêm tiền trọ
                       </button>
                     </div>
                   </div>
@@ -147,53 +190,30 @@ const ElectricAndWaterManagement = (props) => {
                     >
                       <thead>
                         <tr>
-                          <th>Tên hóa đơn</th>
-                          <th>Phòng</th>
+                          <th>Tên phòng</th>
+                         
                           <th>Tháng sử dụng</th>
-                          <th>Số điện tháng trước</th>
-                          <th>Số điện tháng này</th>
-                          <th>Số khối tháng trước</th>
-                          <th>Số khối tháng này</th>
-                          <th>Tổng tiền điện</th>
-                          <th>Tổng tiền nước</th>
+                          <th>Tiền trọ (theo hợp đồng)</th>
+                          <th>Phí dịch vụ</th>
+                          <th>Phí sửa chữa</th>
+                         
+                          <th>Tổng tiền trọ</th>
+                          <th>Phí sửa chữa</th>
                           <th>Trạng Thái</th>
                           <th>Chế độ</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {tableData.map((item) => (
+                      {tableData.map((item) => (
                           <tr key={item.id} className="odd">
                             <td>{item.name}</td>
-                            <td>
-                                {item.room?.title}
-                            </td>
-                            <td className="dtr-control sorting_1">
-                              Tháng {item.month}
-                            </td>
-                            <td>{item.lastMonthNumberOfElectric}</td>
-                            <td>{item.thisMonthNumberOfElectric}</td>{" "}
-                            <td>{item.lastMonthBlockOfWater}</td>
-                            <td>{item.thisMonthBlockOfWater}</td>{" "}
-                            {/* Sửa thành thisMonthBlock thay vì moneyEachBlock */}
-                            <td>{item.totalMoneyOfElectric}
-                              {item.totalMoney &&
-                                item.totalMoney.toLocaleString("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                })}
-                            </td>
-
-                            <td>{item.totalMoneyOfWater}
-                              {item.totalMoney &&
-                                item.totalMoney.toLocaleString("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                })}
-                            </td>
-
-                            <td>
-                              {item.paid ? "Đã thanh toán" : "Chưa thanh toán"}
-                            </td>{" "}
+                            <td>Tháng {item.month}</td>
+                            <td>{item.contractRent.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            <td>{item.serviceFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            <td>{item.repairFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            <td>{item.totalRent.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            <td>{item.discount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                            <td>{item.status}</td>
                             <td>
                               <a
                                 href=""
@@ -209,15 +229,14 @@ const ElectricAndWaterManagement = (props) => {
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  class="feather feather-edit-2 align-middle"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="feather feather-edit-2 align-middle"
                                 >
                                   <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                 </svg>
                               </a>
-                              {/* &nbsp;&nbsp; */}
                             </td>
                           </tr>
                         ))}

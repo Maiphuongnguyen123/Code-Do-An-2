@@ -26,20 +26,20 @@ const DashboardAdmin = (props) => {
     numberOfAccountLocked: '',
   });
 
-  useEffect(() => {
-    fetchData();
-  }, [currentPage]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [currentPage]);
 
-  const fetchData = () => {
-    getAllRoomApprovingOfAdmin(currentPage, itemsPerPage, false).then(response => {
-      setTableData(response.content);
-      setTotalItems(response.totalElements);
-    }).catch(
-      error => {
-        toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-      }
-    )
-  }
+  // const fetchData = () => {
+  //   getAllRoomApprovingOfAdmin(currentPage, itemsPerPage, false).then(response => {
+  //     setTableData(response.content);
+  //     setTotalItems(response.totalElements);
+  //   }).catch(
+  //     error => {
+  //       toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+  //     }
+  //   )
+  // }
 
   const handleSetRoomId = (id) => {
     setRoomId(id);
@@ -53,7 +53,7 @@ const DashboardAdmin = (props) => {
   const handleIsApprove = (id) => {
     approveRoomOfAdmin(id).then(response => {
       toast.success(response.message)
-      fetchData();
+      // fetchData();
     }).catch(
       error => {
         toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
@@ -64,7 +64,7 @@ const DashboardAdmin = (props) => {
   const handleIsRemove = (id) => {
     removeRoomOfAdmin(id).then(response => {
       toast.success(response.message)
-      fetchData();
+      // fetchData();
     }).catch(
       error => {
         toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
@@ -91,20 +91,25 @@ const DashboardAdmin = (props) => {
 
   }, []);
 
-  if (!authenticated) {
-    return <Navigate
-      to={{
-        pathname: "/login-admin",
-        state: { from: location }
-      }} />;
-  }
+  // if (!authenticated) {
+  //   return <Navigate
+  //     to={{
+  //       pathname: "/login-admin",
+  //       state: { from: location }
+  //     }} />;
+  // }
+
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
       <nav id="sidebar" className="sidebar js-sidebar">
         <div className="sidebar-content js-simplebar">
           <a className="sidebar-brand" href="index.html">
-            <span className="align-middle">ADMIN PRO</span>
+          <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+            <span className="align-middle">QUẢN TRỊ VIÊN</span>
           </a>
           <SidebarNav />
         </div>
@@ -117,7 +122,7 @@ const DashboardAdmin = (props) => {
           <div className="container-fluid p-0">
             <div class="row mb-2 mb-xl-3">
               <div class="col-auto d-none d-sm-block">
-                <h3><strong>✨</strong> Thông kê</h3>
+                <h3><strong>✨</strong> Thống kê</h3>
               </div>
             </div>
             <div class="row">

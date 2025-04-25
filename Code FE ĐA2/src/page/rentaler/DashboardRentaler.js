@@ -25,9 +25,9 @@ function DashboardRentaler(props) {
     });
 
     const [contentRevenue, setContentRevenue] = useState([]);
-    const [currentMonthData, setCurrentMonthData] = useState([]);
+    // const [currentMonthData, setCurrentMonthData] = useState([]);
 
-    const [revenueData, setRevenueData] = useState(); 
+    // const [revenueData, setRevenueData] = useState(); 
 
     const [subData, setSubData] = useState({
         labels: [],
@@ -68,24 +68,24 @@ function DashboardRentaler(props) {
       });
 
 
-      const [costData, setCostData] = useState({
-        labels: [],
-        datasets: [
-          {
-            label: "Doanh thu",
-            data: [],
-            backgroundColor: [
-              "rgba(75,192,192,1)",
-              "#ecf0f1",
-              "#50AF95",
-              "#f3ba2f",
-              "#2a71d0",
-            ],
-            borderColor: "black",
-            borderWidth: 2,
-          },
-        ],
-      });
+    //   const [costData, setCostData] = useState({
+    //     labels: [],
+    //     datasets: [
+    //       {
+    //         label: "Doanh thu",
+    //         data: [],
+    //         backgroundColor: [
+    //           "rgba(75,192,192,1)",
+    //           "#ecf0f1",
+    //           "#50AF95",
+    //           "#f3ba2f",
+    //           "#2a71d0",
+    //         ],
+    //         borderColor: "black",
+    //         borderWidth: 2,
+    //       },
+    //     ],
+    //   });
 
     useEffect(() => {
         getNumber()
@@ -174,21 +174,25 @@ function DashboardRentaler(props) {
         console.log("currentMonthData", currentMonthData);
       })
 
-console.log("subData", subData);
-    if (!props.authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
-    }
+// console.log("subData", subData);
+//     if (!props.authenticated) {
+//         return <Navigate
+//             to={{
+//                 pathname: "/login-rentaler",
+//                 state: { from: location }
+//             }} />;
+//     }
 
     return (
-        <div className="wrapper">
+        <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
             <nav id="sidebar" className="sidebar js-sidebar">
                 <div className="sidebar-content js-simplebar">
                     <a className="sidebar-brand" href="index.html">
-                        <span className="align-middle">RENTALER PRO</span>
+                    <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
                     </a>
                     <SidebarNav />
                 </div>
@@ -201,7 +205,7 @@ console.log("subData", subData);
                     <div className="container-fluid p-0">
                         <div class="row mb-2 mb-xl-3">
                             <div class="col-auto d-none d-sm-block">
-                                <h3><strong>✨</strong> Thông kê</h3>
+                                <h3><strong>✨</strong> Thống kê</h3>
                             </div>
                         </div>
                         <div class="row">

@@ -27,13 +27,13 @@ function LoginRentaler(props) {
         }
     }, [location.state, location.pathname, history]);
 
-    if (props.authenticated && props.role === "ROLE_RENTALER") {
-        return <Navigate
-            to={{
-                pathname: "/rentaler",
-                state: { from: location }
-            }} />;
-    }
+    // if (props.authenticated && props.role === "ROLE_RENTALER") {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
 
     return (
         <div style={{ fontFamily: "Arial, sans-serif" }}>
@@ -43,7 +43,7 @@ function LoginRentaler(props) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 order-md-2">
-                            <img src="../../assets/img/background.png" alt="Image" className="img-fluid" />
+                            <img src="../../assets/img/backgroundnew.png" alt="Image" className="img-fluid" />
                         </div>
                         <div className="col-md-6 contents">
                             <div className="row justify-content-center">
@@ -88,21 +88,23 @@ function LoginForm() {
 
     const handleSubmit = event => {
         event.preventDefault();
+        history("/rentaler");
 
-        const loginRequest = { ...formState };
+    //     const loginRequest = { ...formState };
 
-        login(loginRequest)
-            .then(response => {
-                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                toast.success("Bạn đã đăng nhập thành công!!");
-                history("/rentaler");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }).catch(error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            });
-    };
+    //     login(loginRequest)
+    //         .then(response => {
+    //             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+    //             toast.success("Bạn đã đăng nhập thành công!!");
+    //             history("/rentaler");
+    //             setTimeout(() => {
+    //                 window.location.reload();
+    //             }, 1000);
+    //         }).catch(error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         });
+    
+};
 
     return (
         <form onSubmit={handleSubmit}>

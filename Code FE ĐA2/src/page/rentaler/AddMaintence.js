@@ -37,57 +37,58 @@ function AddMaintence(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        const formData = new FormData();
-        formData.append('maintenanceDate', contractData.maintenanceDate);
-        formData.append('roomId', contractData.roomId);
-        formData.append('price', contractData.price);
-        contractData.files.forEach((file, index) => {
-            formData.append(`files`, file);
-        });
-        console.log(formData.getAll)
-        MaintenanceService.addNewMaintenance(formData)
-            .then(response => {
-                toast.success(response.message);
-                toast.success("Phiếu bảo trì lưu thành công!!")
-
-            })
-            .then(data => {
-                console.log(data);
-                // Do something with the response data here
-                setContractData({
-                    maintenanceDate: '',
-                    roomId: '',
-                    price: '',
-                    files: []
-                });
-            })
-            .catch(error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            });
-
-        console.log(contractData);
-    };
-
-    useEffect(() => {
-        getAllRoomOfRentaler(1,1000,'')
-            .then(response => {
-                const room = response.content;
-                setRoomOptions(room);
-            })
-            .catch(error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            });
-    }, []);
-
-
-    if (!authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
     }
+
+    //     const formData = new FormData();
+    //     formData.append('maintenanceDate', contractData.maintenanceDate);
+    //     formData.append('roomId', contractData.roomId);
+    //     formData.append('price', contractData.price);
+    //     contractData.files.forEach((file, index) => {
+    //         formData.append(`files`, file);
+    //     });
+    //     console.log(formData.getAll)
+    //     MaintenanceService.addNewMaintenance(formData)
+    //         .then(response => {
+    //             toast.success(response.message);
+    //             toast.success("Phiếu bảo trì lưu thành công!!")
+
+    //         })
+    //         .then(data => {
+    //             console.log(data);
+    //             // Do something with the response data here
+    //             setContractData({
+    //                 maintenanceDate: '',
+    //                 roomId: '',
+    //                 price: '',
+    //                 files: []
+    //             });
+    //         })
+    //         .catch(error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         });
+
+    //     console.log(contractData);
+    // };
+
+    // useEffect(() => {
+    //     getAllRoomOfRentaler(1,1000,'')
+    //         .then(response => {
+    //             const room = response.content;
+    //             setRoomOptions(room);
+    //         })
+    //         .catch(error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         });
+    // }, []);
+
+
+    // if (!authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
     return (
         <>
             <div className="wrapper">

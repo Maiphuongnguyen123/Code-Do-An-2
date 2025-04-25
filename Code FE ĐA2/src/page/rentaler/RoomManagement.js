@@ -7,11 +7,44 @@ import { toast } from 'react-toastify';
 import { Navigate, useNavigate } from 'react-router-dom';
 import ModalRoomDetails from './modal/ModalRoomDetail';
 
+const mockRooms = [
+    {
+        id: 1,
+        title: "Phòng trọ Quận Hai Bà Trưng",
+        address: "123 Đường Thanh Nhàn, Phường XYZ, Quận 1",
+        price: 3000000,
+        status: "ROOM_RENT",
+        isLocked: "ENABLE",
+        isApprove: true,
+        isRemove: false,
+    },
+    {
+        id: 2,
+        title: "Căn hộ mini khu Bách Kinh Xây",
+        address: "12 Đường Giải Phóng, Quận Hai Bà Trưng, Hà Nội",
+        price: 5000000,
+        status: "HIRED",
+        isLocked: "DISABLE",
+        isApprove: false,
+        isRemove: false,
+    },
+    {
+        id: 3,
+        title: "Phòng trọ Đống Đa",
+        address: "789 Đường Xã Đàn, Quận Đống Đa, Hà Nội",
+        price: 4000000,
+        status: "CHECKED_OUT",
+        isLocked: "ENABLE",
+        isApprove: true,
+        isRemove: false,
+    }
+];
+
 function RoomManagement(props) {
     const { authenticated, role, currentUser, location, onLogout } = props;
     const history = useNavigate();
 
-    const [tableData, setTableData] = useState([]);
+    const [tableData, setTableData] = useState(mockRooms);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -20,21 +53,21 @@ function RoomManagement(props) {
     const [roomId, setRoomId] = useState(4);
     const [showModal, setShowModal] = useState(false);
 
-    // Fetch data from the API
-    useEffect(() => {
-        fetchData();
-    }, [currentPage, searchQuery]);
+    // // Fetch data from the API
+    // useEffect(() => {
+    //     fetchData();
+    // }, [currentPage, searchQuery]);
 
-    const fetchData = () => {
-        getAllRoomOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
-            setTableData(response.content);
-            setTotalItems(response.totalElements);
-        }).catch(
-            error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            }
-        )
-    }
+    // const fetchData = () => {
+    //     getAllRoomOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
+    //         setTableData(response.content);
+    //         setTotalItems(response.totalElements);
+    //     }).catch(
+    //         error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         }
+    //     )
+    // }
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -56,7 +89,7 @@ function RoomManagement(props) {
     const handleDisableRoom = (roomId) => {
         disableRoom(roomId).then(response => {
             toast.success(response.message)
-            fetchData();
+            // fetchData();
         }).catch(
             error => {
                 toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
@@ -71,21 +104,25 @@ function RoomManagement(props) {
 
     console.log("ROOM_ID", roomId)
 
-    if (!props.authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
-    }
+    // if (!props.authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
 
     return (
         <>
-            <div className="wrapper">
+            <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
                 <nav id="sidebar" className="sidebar js-sidebar">
                     <div className="sidebar-content js-simplebar">
                         <a className="sidebar-brand" href="index.html">
-                            <span className="align-middle">RENTALER PRO</span>
+                        <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
                         </a>
                         <SidebarNav />
                     </div>

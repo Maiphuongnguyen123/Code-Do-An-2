@@ -69,7 +69,7 @@ const AgentSingle = (props) => {
     };
 
     return (
-        <>
+        <div style={{ fontFamily: "Arial, sans-serif" }}>
             <Header authenticated={props.authenticated} currentUser={props.currentUser} onLogout={props.onLogout} />
             <main id="main">
                 <section class="intro-single">
@@ -255,7 +255,7 @@ const AgentSingle = (props) => {
                 </section>
             </main>
             <Footer />
-        </>
+            </div>
     );
 };
 

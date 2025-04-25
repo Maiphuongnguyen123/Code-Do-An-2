@@ -40,7 +40,7 @@ import ExportBillRequier from './page/rentaler/ExportBillRequier';
 import ExportCheckoutRoom from './page/rentaler/ExportCheckoutRoom';
 import ProfileRentaler from './page/rentaler/ProfileRentaler';
 import ChangePassword from './page/rentaler/ChangePassword';
-import RoomManagementAdmin from './page/admin/RoomManagerment';
+import RoomManagementAdmin from './page/admin/RoomManagementAdmin';
 import AccountManagement from './page/admin/AccountManagement';
 import SendEmail from './page/admin/SendEmail';
 import Chat from './page/rentaler/Chat';

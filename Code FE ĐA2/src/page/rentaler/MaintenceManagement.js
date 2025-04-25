@@ -16,21 +16,21 @@ function MaintenceManagement(props) {
     const [totalItems, setTotalItems] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Fetch data from the API
-    useEffect(() => {
-        fetchData();
-    }, [currentPage, searchQuery]);
+    // // Fetch data from the API
+    // useEffect(() => {
+    //     fetchData();
+    // }, [currentPage, searchQuery]);
 
-    const fetchData = () => {
-        getAllMaintenceOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
-            setTableData(response.content);
-            setTotalItems(response.totalElements);
-        }).catch(
-            error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            }
-        )
-    }
+    // const fetchData = () => {
+    //     getAllMaintenceOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
+    //         setTableData(response.content);
+    //         setTotalItems(response.totalElements);
+    //     }).catch(
+    //         error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         }
+    //     )
+    // }
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -53,7 +53,7 @@ function MaintenceManagement(props) {
         deleteMaintenance(id).then(response => {
             console.log(response.message)
             toast.success("Xóa phiếu bảo trì thành công")
-            fetchData();
+            // fetchData();
         }).catch(
             error => {
                 toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
@@ -61,13 +61,13 @@ function MaintenceManagement(props) {
         )
     }
 
-    if (!props.authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
-    }
+    // if (!props.authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
 
     return (
         <>

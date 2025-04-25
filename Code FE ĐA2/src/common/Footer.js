@@ -5,7 +5,7 @@ class Footer extends Component {
         return (
             <div style={{ fontFamily: "Arial, sans-serif" }}>
             <>
-                <section class="section-footer">
+                <section class="section-footer" style={{ padding: "5px 5", margin: "5" }}>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
@@ -62,8 +62,8 @@ class Footer extends Component {
                             
                         </div>
                     </div>
-                </section>
-                <footer>
+                </section >
+                <footer style={{ padding: "5px 0", margin: "5" }}>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">

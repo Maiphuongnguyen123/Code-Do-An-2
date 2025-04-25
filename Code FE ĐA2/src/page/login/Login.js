@@ -42,13 +42,16 @@ function Login(props) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 order-md-6">
-                            <img src="../../assets/img/background.png" alt="Image" className="img-fluid" />
+                            <img src="../../assets/img/backgroundnew.png" alt="Image" className="img-fluid" />
                         </div>
                         <div className="col-md-6 contents">
                             <div className="row justify-content-center">
                                 <div className="col-md-8">
                                     <div className="mb-4">
                                         <h3>Đăng nhập <a href="/" style={{ textDecoration: 'none' }}>Rent<span className="color-b">Mate</span></a></h3>
+                                        <p className="mb-4">
+                                        Bạn đang đăng nhập với vai trò{' '}
+                                        <span style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>NGƯỜI THUÊ TRỌ</span>. </p>
                                         <p className="mb-4">Nếu bạn chưa có tài khoản. <a href="/signup">Đăng ký tài khoản mới</a></p>
                                     </div>
                                     <LoginForm />
@@ -108,20 +111,21 @@ function LoginForm() {
 
     const handleSubmit = event => {
         event.preventDefault();
+        history("/");
 
-        const loginRequest = { ...formState };
+        // const loginRequest = { ...formState };
 
-        login(loginRequest)
-            .then(response => {
-                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                toast.success("Bạn đã đăng nhập thành công!!");
-                history("/");
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            }).catch(error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            });
+        // login(loginRequest)
+        //     .then(response => {
+        //         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+        //         toast.success("Bạn đã đăng nhập thành công!!");
+        //         history("/");
+        //         setTimeout(() => {
+        //             window.location.reload();
+        //         }, 2000);
+        //     }).catch(error => {
+        //         toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+        //     });
     };
 
     return (

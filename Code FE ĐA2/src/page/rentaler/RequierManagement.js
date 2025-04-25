@@ -15,26 +15,57 @@ function RequierManagement(props) {
     const [itemsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
+ // Mock data
+ useEffect(() => {
+    const mockData = [
+        {
+            id: 1,
+            room: { title: 'Phòng 101' },
+            name: 'Nguyễn Văn A',
+            phoneNumber: '0123456789',
+            description: 'Cần sửa chữa điều hòa',
+            isAnswer: false,
+        },
+        {
+            id: 2,
+            room: { title: 'Phòng 202' },
+            name: 'Lê Thị B',
+            phoneNumber: '0987654321',
+            description: 'Cần thay bóng đèn nhà vệ sinh',
+            isAnswer: true,
+        },
+        {
+            id: 3,
+            room: { title: 'Phòng 303' },
+            name: 'Trần Văn C',
+            phoneNumber: '0912345678',
+            description: 'Nước rò rỉ trong bếp',
+            isAnswer: false,
+        },
+    ];
 
-    // Fetch data from the API
-    useEffect(() => {
-        fetchData();
-    }, [currentPage, searchQuery]);
+    setTableData(mockData);
+    setTotalItems(mockData.length);
+}, []);
+    // // Fetch data from the API
+    // useEffect(() => {
+    //     fetchData();
+    // }, [currentPage, searchQuery]);
 
-    const fetchData = () => {
-        getAllRequireOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
-            setTableData(response.content);
-            setTotalItems(response.totalElements);
-        }).catch(
-            error => {
-                toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
-            }
-        )
-    }
+    // const fetchData = () => {
+    //     getAllRequireOfRentaler(currentPage, itemsPerPage, searchQuery).then(response => {
+    //         setTableData(response.content);
+    //         setTotalItems(response.totalElements);
+    //     }).catch(
+    //         error => {
+    //             toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
+    //         }
+    //     )
+    // }
 
-    const handleSearch = (event) => {
+    function handleSearch(event) {
         setSearchQuery(event.target.value);
-    };
+    }
 
     const handleExportBill = (id) => {
         history('/rentaler/export-bill/'+id)
@@ -50,7 +81,7 @@ function RequierManagement(props) {
         changeStatusOfRequest(id).then(response => {
             console.log(response.message)
             toast.success("Yêu cầu đã được xử lý")
-            fetchData();
+            // fetchData();
         }).catch(
             error => {
                 toast.error((error && error.message) || 'Oops! Có điều gì đó xảy ra. Vui lòng thử lại!');
@@ -58,22 +89,26 @@ function RequierManagement(props) {
         )
     }
 
-    if (!props.authenticated) {
-        return <Navigate
-            to={{
-                pathname: "/login-rentaler",
-                state: { from: location }
-            }} />;
-    }
+    // if (!props.authenticated) {
+    //     return <Navigate
+    //         to={{
+    //             pathname: "/login-rentaler",
+    //             state: { from: location }
+    //         }} />;
+    // }
 
 
     return (
         <>
-            <div className="wrapper">
+            <div className="wrapper" style={{ fontFamily: "Arial, sans-serif" }}>
                 <nav id="sidebar" className="sidebar js-sidebar">
                     <div className="sidebar-content js-simplebar">
                         <a className="sidebar-brand" href="index.html">
-                            <span className="align-middle">RENTALER PRO</span>
+                        <a className="navbar-brand text-brand d-flex align-items-center" href="/">
+<img src="/assets/img/logo.png" alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+<span className="color-b" style={{ color: '#fff' }}>Rent</span><span className="color-b" style={{ color: '#28a745' }}>Mate</span>
+</a>
+                        <span className="align-middle">NGƯỜI CHO THUÊ TRỌ</span>
                         </a>
                         <SidebarNav />
                     </div>

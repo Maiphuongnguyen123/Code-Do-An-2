@@ -63,14 +63,16 @@ function Signup(props) {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 order-md-6">
-                            <img src="../../assets/img/background.png" alt="Image" className="img-fluid" />
+                            <img src="../../assets/img/backgroundnew.png" alt="Image" className="img-fluid" />
                         </div>
                         <div className="col-md-6 contents">
                             <div className="row justify-content-center">
                                 <div className="col-md-8">
                                     <div className="mb-4">
                                         <h3>Đăng kí <a href="/" style={{ textDecoration: 'none' }}>Rent<span className="color-b">Mate</span></a></h3>
-                                        <p className="mb-4">Bạn đang đăng ký với vai trò </p> <p classname ="mb-4" style={{ fontWeight: 'bold' }}> NGƯỜI THUÊ TRỌ</p> <p className="mb-4">Nếu bạn đã có tài khoản hãy <a href="/login">Đăng nhập tại đây</a></p>
+                                        <p className="mb-4">
+                                        Bạn đang đăng nhập với vai trò{' '}
+                                        <span style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>NGƯỜI THUÊ TRỌ</span>. </p> <p className="mb-4">Nếu bạn đã có tài khoản hãy <a href="/login">Đăng nhập tại đây</a></p>
                                     </div>
                                     <form onSubmit={handleSubmit}>
                                         <div className="form-group first">
